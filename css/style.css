@@ -107,9 +107,7 @@ body {
 .messagge {
   width: 250px;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  padding-right: 5px;
+  padding: 10px 5px 0 10px;
 }
 .sent {
   align-self: end;
@@ -120,10 +118,11 @@ body {
 }
 .message-text {
   font-size: 14px;
-  padding: 10px;
+  width: 100%;
+  margin-bottom: 3px;
 }
 .hour-text {
-  align-self: end;
+  text-align: end;
 }
 /* SIDEBAR CONTATTI */
 .sidebar-wrapper {
@@ -168,6 +167,10 @@ body {
 }
 .contact:hover {
   background-color: #f0f0f0;
+}
+
+.contact.active {
+  background-color: #e5e7e7;
 }
 
 .contact-logo {

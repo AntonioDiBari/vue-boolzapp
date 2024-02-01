@@ -86,7 +86,12 @@
             </div>
           </div>
           <section class="contacts">
-            <div v-for="contact in contacts" class="contact">
+            <div
+              v-for="(contact,index) in contacts"
+              @click="selectedChat(index)"
+              :class="activeChat==index ? 'active':''"
+              class="contact"
+            >
               <div class="contact-user">
                 <div class="contact-logo">
                   <img :src="contact.avatar" alt="" />
@@ -108,10 +113,10 @@
           <div class="col-header">
             <div class="col-header-user">
               <div class="header-logo">
-                <img src="./img/avatar_1.jpg" alt="" />
+                <img :src="contacts[activeChat].avatar" alt="" />
               </div>
               <div class="header-info">
-                <span class="name-text">Michele</span>
+                <span class="name-text">{{ contacts[activeChat].name }}</span>
                 <span class="hour d-block text-secondary"
                   >Ultimo accesso oggi alle</span
                 >
@@ -124,13 +129,13 @@
             </div>
           </div>
           <div class="chat">
-            <div class="messagge sent">
-              <div class="message-text">Hai portato il cane?</div>
-              <div class="hour-text hour text-secondary">12.00</div>
-            </div>
-            <div class="messagge received">
-              <div class="message-text">Hai portato il cane?</div>
-              <div class="hour-text hour text-secondary">12.00</div>
+            <div
+              v-for="mex in contacts[activeChat].messages"
+              class="messagge"
+              :class="mex.status === 'sent' ? 'sent' : 'received'"
+            >
+              <div class="message-text">{{mex.message}}</div>
+              <div class="hour-text hour text-secondary">{{mex.date}}</div>
             </div>
           </div>
           <div class="text-area text-secondary">

@@ -166,10 +166,15 @@ const app = createApp({
           ],
         },
       ],
+      activeChat: 0,
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    selectedChat(index) {
+      this.activeChat = index;
+    },
+  },
   mounted() {},
 });
 
