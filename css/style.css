@@ -23,7 +23,6 @@ body {
 
 .row {
   width: 70%;
-  border: 1px solid black;
   overflow: hidden;
 }
 .col-5,
@@ -53,7 +52,8 @@ body {
   aspect-ratio: 1;
 }
 
-.header-logo > img {
+.header-logo > img,
+.contact-logo > img {
   object-fit: cover;
   border-radius: 50%;
 }
@@ -62,12 +62,19 @@ body {
   display: flex;
   gap: 15px;
 }
+.col-header-commands > i {
+  cursor: pointer;
+}
 
 /* FORMATTAZIONE TESTI */
 .name-text {
   font-size: 14px;
 }
 .last-access {
+  font-size: 8px;
+}
+.hour,
+.notificLink {
   font-size: 10px;
 }
 
@@ -77,6 +84,10 @@ body {
   height: calc(100% - 100px);
   overflow: auto;
   background-image: url(/img/mine.jpg);
+  padding: 40px 80px 5px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .text-area {
@@ -93,6 +104,27 @@ body {
   cursor: pointer;
 }
 
+.messagge {
+  width: 250px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5px;
+}
+.sent {
+  align-self: end;
+  background-color: #d5f9ba;
+}
+.received {
+  background-color: white;
+}
+.message-text {
+  font-size: 14px;
+  padding: 10px;
+}
+.hour-text {
+  align-self: end;
+}
 /* SIDEBAR CONTATTI */
 .sidebar-wrapper {
   position: sticky;
@@ -123,4 +155,27 @@ body {
 .contacts {
   height: calc(100% - 50px - 60px - 46px);
   overflow: auto;
+  background-color: white;
+}
+
+/* BADGE CONTATTI */
+.contact {
+  height: 70px;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+}
+.contact:hover {
+  background-color: #f0f0f0;
+}
+
+.contact-logo {
+  width: 50px;
+  aspect-ratio: 1;
+}
+
+.contact-user {
+  display: flex;
+  gap: 10px;
 }
