@@ -26,7 +26,12 @@ body {
   border: 1px solid black;
   overflow: hidden;
 }
+.col-5,
+.col-7 {
+  height: 100%;
+}
 
+/* HEADER COMUNE AD ENTRAMBE LE SEZIONI */
 .col-header {
   height: 50px;
   background-color: #eaeaea;
@@ -55,18 +60,67 @@ body {
 
 .col-header-commands {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
+
+/* FORMATTAZIONE TESTI */
+.name-text {
+  font-size: 14px;
+}
+.last-access {
+  font-size: 10px;
+}
+
+/* SEZIONE CHAT */
 
 .chat {
   height: calc(100% - 100px);
   overflow: auto;
+  background-image: url(/img/mine.jpg);
 }
 
 .text-area {
   height: 50px;
   background-color: #eaeaea;
   display: flex;
+  align-items: center;
   position: sticky;
   bottom: 0px;
+}
+
+.text-area i {
+  margin: 5px 25px;
+  cursor: pointer;
+}
+
+/* SIDEBAR CONTATTI */
+.sidebar-wrapper {
+  position: sticky;
+  top: 0px;
+}
+.notification {
+  background-color: #8edafc;
+  height: 60px;
+  gap: 15px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+.notification-logo {
+  height: 40px;
+  aspect-ratio: 1;
+  border-radius: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8edafc;
+}
+.searchbar {
+  background-color: #f0f0f0;
+}
+
+.contacts {
+  height: calc(100% - 50px - 60px - 46px);
+  overflow: auto;
 }
