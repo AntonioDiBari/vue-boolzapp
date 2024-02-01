@@ -167,12 +167,33 @@ const app = createApp({
         },
       ],
       activeChat: 0,
+      newMexSent: {
+        date: "Now",
+        message: "",
+        status: "sent",
+      },
+      newMexReceived: {
+        date: "Now",
+        message: "OK!",
+        status: "received",
+      },
     };
   },
   computed: {},
   methods: {
     selectedChat(index) {
       this.activeChat = index;
+    },
+    sentMex() {
+      const newMexSentCopy = { ...this.newMexSent };
+      this.contacts[this.activeChat].messages.push(newMexSentCopy);
+      this.newMexSent.message = "";
+    },
+    receivedMex() {
+      this.contacts[this.activeChat].messages.push(this.newMexReceived);
+    },
+    setTimeoutMex() {
+      setTimeout(this.receivedMex, 1000);
     },
   },
   mounted() {},

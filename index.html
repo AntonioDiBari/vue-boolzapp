@@ -141,6 +141,8 @@
           <div class="text-area text-secondary">
             <i class="fa-regular fa-face-smile"></i>
             <input
+              v-model.trim="newMexSent.message"
+              @keyup.enter="sentMex(),setTimeoutMex() "
               class="form-control"
               type="text"
               placeholder="Scrivi un messaggio"
