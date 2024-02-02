@@ -16,7 +16,14 @@ body {
 .webapp {
   width: 100%;
   height: 100vh;
-  background-color: #d9dbd5;
+  /* background-color: #d9dbd5; */
+  background-image: linear-gradient(
+    to bottom,
+    #009688 0px,
+    #009688 15vh,
+    #d9dbd5 15vh,
+    #d9dbd5 100vh
+  );
   display: flex;
   justify-content: center;
 }
@@ -83,7 +90,7 @@ body {
 .chat {
   height: calc(100% - 100px);
   overflow: auto;
-  background-image: url(/img/mine.jpg);
+  background-image: url("../img/mine.jpg");
   padding: 40px 80px 5px 80px;
   display: flex;
   flex-direction: column;
@@ -179,6 +186,19 @@ body {
 }
 
 .contact-user {
+  flex-grow: 1;
   display: flex;
   gap: 10px;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-mex {
+  text-overflow: ellipsis;
+}
+.preview-hour {
+  flex-grow: 0;
+  min-width: 100px;
 }

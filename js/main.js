@@ -168,15 +168,16 @@ const app = createApp({
       ],
       activeChat: 0,
       newMexSent: {
-        date: "Now",
+        date: "",
         message: "",
         status: "sent",
       },
       newMexReceived: {
-        date: "Now",
+        date: "",
         message: "OK!",
         status: "received",
       },
+      nameSearch: "",
     };
   },
   computed: {},
@@ -184,16 +185,46 @@ const app = createApp({
     selectedChat(index) {
       this.activeChat = index;
     },
+    getContactLastAcces(messages) {
+      const receivedMex = messages.filter(
+        (message) => message.status == "received"
+      );
+      return receivedMex[receivedMex.length - 1].date;
+    },
+    getLastMex(messages) {
+      return messages[messages.length - 1].message;
+    },
+    getCurrentTime() {
+      const now = new Date();
+      return `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    },
+
     sentMex() {
       const newMexSentCopy = { ...this.newMexSent };
+      newMexSentCopy.date = this.getCurrentTime();
       this.contacts[this.activeChat].messages.push(newMexSentCopy);
       this.newMexSent.message = "";
+      this.setTimeoutMex();
     },
     receivedMex() {
+      this.newMexReceived.date = this.getCurrentTime();
       this.contacts[this.activeChat].messages.push(this.newMexReceived);
     },
     setTimeoutMex() {
       setTimeout(this.receivedMex, 1000);
+    },
+    searchbyName() {
+      for (contact of this.contacts) {
+        if (
+          contact.name
+            .toLowerCase()
+            .includes(this.nameSearch.trim().toLowerCase())
+        ) {
+          contact.visible = true;
+        } else {
+          contact.visible = false;
+        }
+      }
     },
   },
   mounted() {},
