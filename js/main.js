@@ -189,7 +189,11 @@ const app = createApp({
       const receivedMex = messages.filter(
         (message) => message.status == "received"
       );
-      return receivedMex[receivedMex.length - 1].date;
+      if (receivedMex.length == 0) {
+        return;
+      } else {
+        return receivedMex[receivedMex.length - 1].date;
+      }
     },
     getLastMex(messages) {
       return messages[messages.length - 1].message;
@@ -200,11 +204,15 @@ const app = createApp({
     },
 
     sentMex() {
-      const newMexSentCopy = { ...this.newMexSent };
-      newMexSentCopy.date = this.getCurrentTime();
-      this.contacts[this.activeChat].messages.push(newMexSentCopy);
-      this.newMexSent.message = "";
-      this.setTimeoutMex();
+      if (!this.newMexSent.message) {
+        alert("Scrivi un messaggio con almeno un carattere");
+      } else {
+        const newMexSentCopy = { ...this.newMexSent };
+        newMexSentCopy.date = this.getCurrentTime();
+        this.contacts[this.activeChat].messages.push(newMexSentCopy);
+        this.newMexSent.message = "";
+        this.setTimeoutMex();
+      }
     },
     receivedMex() {
       this.newMexReceived.date = this.getCurrentTime();
@@ -225,6 +233,9 @@ const app = createApp({
           contact.visible = false;
         }
       }
+    },
+    deleteMex(mex, index) {
+      this.contacts[this.activeChat].messages.splice(index, 1);
     },
   },
   mounted() {},

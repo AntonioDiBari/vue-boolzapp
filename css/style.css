@@ -16,7 +16,6 @@ body {
 .webapp {
   width: 100%;
   height: 100vh;
-  /* background-color: #d9dbd5; */
   background-image: linear-gradient(
     to bottom,
     #009688 0px,
@@ -29,7 +28,7 @@ body {
 }
 
 .row {
-  width: 70%;
+  width: 80%;
   overflow: hidden;
 }
 .col-5,
@@ -111,10 +110,11 @@ body {
   cursor: pointer;
 }
 
-.messagge {
+.message {
   width: 250px;
   border-radius: 10px;
   padding: 10px 5px 0 10px;
+  position: relative;
 }
 .sent {
   align-self: end;
@@ -131,6 +131,16 @@ body {
 .hour-text {
   text-align: end;
 }
+.message-option {
+  display: none;
+}
+.message:hover .message-option {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  display: block;
+}
+
 /* SIDEBAR CONTATTI */
 .sidebar-wrapper {
   position: sticky;

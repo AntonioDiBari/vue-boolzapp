@@ -111,7 +111,7 @@
               </div>
               <div
                 class="hour text-secondary preview-hour"
-                v-if="contact.messages.length"
+                v-if="contact.messages.length "
               >
                 {{getContactLastAcces(contact.messages)}}
               </div>
@@ -129,7 +129,7 @@
                 <span
                   class="hour d-block text-secondary"
                   v-if="contacts[activeChat].messages.length > 0"
-                  >Ultimo accesso oggi alle
+                  >Ultimo accesso
                   {{getContactLastAcces(contacts[activeChat].messages)}}
                 </span>
               </div>
@@ -142,12 +142,36 @@
           </div>
           <div class="chat">
             <div
-              v-for="mex in contacts[activeChat].messages"
-              class="messagge"
+              v-for="(mex,indexMex) in contacts[activeChat].messages"
+              class="message"
               :class="mex.status === 'sent' ? 'sent' : 'received'"
             >
               <div class="message-text">{{mex.message}}</div>
               <div class="hour-text hour text-secondary">{{mex.date}}</div>
+              <div class="message-option">
+                <div class="dropdown">
+                  <button
+                    class="btn border-0"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end border-0 shadow-lg"
+                  >
+                    <li><a class="dropdown-item" href="#">Message Info</a></li>
+                    <li>
+                      <a
+                        @click="deleteMex(mex, indexMex)"
+                        class="dropdown-item"
+                        href="#"
+                        >Delete message</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
           <div class="text-area text-secondary">
