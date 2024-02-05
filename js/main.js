@@ -1,4 +1,5 @@
 const { createApp } = Vue;
+const dt = luxon.DateTime;
 
 const app = createApp({
   data() {
@@ -182,9 +183,20 @@ const app = createApp({
   },
   computed: {},
   methods: {
+    /**
+     * Imposta la chat attiva da visualizzare
+     * @param {*} index
+     */
     selectedChat(index) {
       this.activeChat = index;
     },
+
+    /**
+     * Restituisce Ora ultimo accesso basato sui messaggi ricevuti
+     * controllo se non ci sono ultimi mex non stampa nulla
+     * @param {*} messages
+     * @returns
+     */
     getContactLastAcces(messages) {
       const receivedMex = messages.filter(
         (message) => message.status == "received"
@@ -192,17 +204,55 @@ const app = createApp({
       if (receivedMex.length == 0) {
         return;
       } else {
-        return receivedMex[receivedMex.length - 1].date;
+        return this.formatDate(receivedMex[receivedMex.length - 1].date);
       }
     },
+
+    /**
+     * Restituisce ultimo messaggio presente in chat
+     * @param {*} messages
+     * @returns
+     */
     getLastMex(messages) {
       return messages[messages.length - 1].message;
     },
+    /**
+     * Prende ora e data correnti
+     * @returns
+     */
     getCurrentTime() {
       const now = new Date();
-      return `${now.getDate()}/${now.getMonth()}/${now.getFullYear()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+      const day = now.getDate() < 10 ? `0` + now.getDate() : now.getDate();
+      const month =
+        now.getMonth() + 1 < 10
+          ? `0` + (now.getMonth() + 1)
+          : now.getMonth() + 1;
+      const hours = now.getHours() < 10 ? `0` + now.getHours() : now.getHours();
+      const minutes =
+        now.getMinutes() < 10 ? `0` + now.getMinutes() : now.getMinutes();
+      const seconds =
+        now.getSeconds() < 10 ? `0` + now.getSeconds() : now.getSeconds();
+
+      return `${day}/${month}/${now.getFullYear()} ${hours}:${minutes}:${seconds}`;
     },
 
+    /**
+     * Formattazione con Luxon
+     * @param {*} date
+     * @returns una stringa in formato data come preferisco
+     */
+    formatDate(date) {
+      /* CREO UN OBJ LUXON CHE RAPPRESENTA LA DATA E SPEFICICO COME LEGGERLO */
+      const dateMex = dt.fromFormat(date, "dd/MM/yyyy HH:mm:ss");
+      /* CONVERTO LA DATA IN UNA STRINGA COME PREFERISCO VEDERLA */
+      const dateTex = dateMex.toLocaleString(dt.TIME_24_SIMPLE);
+      return dateTex;
+    },
+
+    /**
+     * Iinvia un messaggio, controllando che l'input non sia vuoto o con spazi, svuotandolo dopo
+     * l'invio, parte dopo un sec il setTimeout della risposta
+     */
     sentMex() {
       if (!this.newMexSent.message) {
         alert("Scrivi un messaggio con almeno un carattere");
@@ -214,14 +264,28 @@ const app = createApp({
         this.setTimeoutMex();
       }
     },
+
+    /**
+     * Aggiunge messaggio ricevuto all'arrey dei messaggi, di ogni obj in questione
+     */
     receivedMex() {
       this.newMexReceived.date = this.getCurrentTime();
       this.contacts[this.activeChat].messages.push(this.newMexReceived);
     },
+
+    /**
+     * Funzione della risposta dopo un sec
+     */
     setTimeoutMex() {
       setTimeout(this.receivedMex, 1000);
     },
+
+    /**
+     * Funzione che filtra l'array di contatti, in baso a quello ricercato
+     * troverà indipendentemente se maiusc o minusc o con spazii iniziali e finali
+     */
     searchbyName() {
+      /* SI POTEVA ANCHE USARE UN FOR.EACH O SOVRASCRIVERE L'ARRAY CONTACS CON UN MAP DELLO STESSO */
       for (contact of this.contacts) {
         if (
           contact.name
@@ -234,6 +298,13 @@ const app = createApp({
         }
       }
     },
+
+    /**
+     * Eliminia il messaggio selezionato nella chat attiva dall'array dell'oggetto
+     * grazie all'indice del messaggio presente nell'array di messaggi presente in ogni oggetto
+     * @param {*} mex
+     * @param {*} index
+     */
     deleteMex(mex, index) {
       this.contacts[this.activeChat].messages.splice(index, 1);
     },
